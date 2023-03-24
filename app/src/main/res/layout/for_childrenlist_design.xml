@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Child Name"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:id="@+id/name"
+        android:layout_marginLeft="5dp" />
+    <TextView
+        android:id="@+id/name1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:text="Aadya A"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/name"
+        android:layout_marginStart="5dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:id="@+id/className"
+        android:layout_marginLeft="5dp" />
+    <TextView
+        android:id="@+id/className1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/name1"
+        android:text="Toddler"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Of Birth"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/className"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:id="@+id/dob"
+        android:layout_marginLeft="5dp" />
+    <TextView
+        android:id="@+id/dob1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/className1"
+        android:text="15 Jan 2018"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardian Name"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/dob"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="5dp"
+        android:id="@+id/guardianName"
+        android:layout_marginLeft="5dp" />
+    <TextView
+        android:id="@+id/guardianName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/dob1"
+        android:text="Srini"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/guardianName"
+    android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/checkin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_back"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="Check in/Check out"
+            android:textAllCaps="false"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="8dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/childInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_back"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="Child Info"
+        android:textAllCaps="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="8dp" />
+</LinearLayout>
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/noData_leaveList_admin_approved"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="@drawable/nodata"/>
+</com.google.android.material.card.MaterialCardView>

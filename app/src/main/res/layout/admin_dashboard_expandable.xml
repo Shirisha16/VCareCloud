@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:background="@drawable/side_nav_bar"
+        android:backgroundTint="@color/white"
+        android:gravity="bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/logo" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logo"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <!--    <ExpandableListView-->
+    <!--        android:id="@+id/expandableListView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="176dp"-->
+    <!--        android:background="@android:color/white"-->
+    <!--        android:dividerHeight="0dp"-->
+    <!--        android:groupIndicator="@null" />-->
+
+    <TextView
+        android:id="@+id/dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v0"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/dashboard"
+        android:drawablePadding="28dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="Dashboard"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/dashboard"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v1"
+        android:id="@+id/relative1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_child">
+
+            <TextView
+                android:id="@+id/children"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/children"
+                android:drawablePadding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Children"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/add1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:drawableEnd="@drawable/ic_add"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:visibility="visible"
+                android:drawableRight="@drawable/ic_add" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_child">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expandable_children"
+                android:visibility="gone"
+                app:el_expanded="false">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/childrenList"
+                    android:text="Children List"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/absent"
+                    android:text="Absent List"
+                    android:layout_below="@+id/childrenList"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/wait"
+                    android:text="Wait List"
+                    android:paddingTop="15dp"
+                    android:layout_below="@+id/absent"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative1"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v2"
+        android:id="@+id/relative2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_emp">
+            <TextView
+                android:id="@+id/employee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/employees"
+                android:drawablePadding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Employees"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/add2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_add"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_emp">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/expandable_emp"
+                app:el_expanded="false">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/empList"
+                    android:text="Employees List"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/empAttendance"
+                    android:text="Employee Attendance"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:layout_below="@+id/empList"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/shift"
+                    android:text="Shifts"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_below="@+id/empAttendance"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative2"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v3"
+        android:id="@+id/relative3">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_childActivity">
+
+            <TextView
+                android:id="@+id/childActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:drawablePadding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Child Activity"
+                android:drawableLeft="@drawable/image_activity"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/add3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_add"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_childActivity">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expLayout_childActivity">
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/activityplanner"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                <!--                    android:drawablePadding="20dp"-->
+                <!--                    android:paddingTop="15dp"-->
+                <!--                    android:paddingBottom="15dp"-->
+                <!--                    android:text="Activity Planner" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/daily"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@+id/activityplanner"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                <!--                    android:drawablePadding="20dp"-->
+                <!--                    android:paddingTop="15dp"-->
+                <!--                    android:paddingBottom="15dp"-->
+                <!--                    android:text="Daily Activities" />-->
+
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Activity Category" />
+
+                <TextView
+                    android:id="@+id/camps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/category"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Camps" />
+
+                <TextView
+                    android:id="@+id/events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/camps"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Events" />
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative3"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v4"
+        android:id="@+id/relative4">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_meal">
+
+            <TextView
+                android:id="@+id/meal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/meal"
+                android:drawablePadding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Meal Planner"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/add4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_add"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_meal">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expLayout_mealPlanner"
+                android:visibility="gone"
+                app:el_expanded="false">
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:id="@+id/mealPlanner"-->
+                <!--                    android:text="Meal Planner"-->
+                <!--                    android:paddingTop="15dp"-->
+                <!--                    android:paddingBottom="15dp"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:drawablePadding="20dp"-->
+                <!--                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:id="@+id/dailyMeals"-->
+                <!--                    android:text="Daily Meals"-->
+                <!--                    android:layout_below="@+id/mealPlanner"-->
+                <!--                    android:paddingTop="15dp"-->
+                <!--                    android:paddingBottom="15dp"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:drawablePadding="20dp"-->
+                <!--                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/menu"
+                    android:text="Menu"
+                    android:layout_below="@+id/dailyMeals"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:id="@+id/mealportion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_below="@+id/menu"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Meal Portion Taken" />
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative4"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v5"
+        android:id="@+id/relative5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_billing">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/billing"
+                android:text="Billing"
+                android:drawablePadding="30dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textStyle="bold"
+                android:drawableLeft="@drawable/bill"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/add5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_add"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_billing">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expLayout_billing">
+
+                <TextView
+                    android:id="@+id/package1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Base Package" />
+
+                <TextView
+                    android:id="@+id/charges"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/package1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Additional Charges" />
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/charges"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Discounts" />
+
+                <TextView
+                    android:id="@+id/adjustment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/discount"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Adjustments" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/invoiceList"
+                    android:text="Invoice List"
+                    android:paddingTop="15dp"
+                    android:layout_below="@+id/adjustment"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:id="@+id/closeOut"-->
+                <!--                    android:text="Child CloseOut"-->
+                <!--                    android:layout_below="@+id/generate"-->
+                <!--                    android:paddingTop="15dp"-->
+                <!--                    android:paddingBottom="15dp"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:drawablePadding="20dp"-->
+                <!--                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>-->
+
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative5"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v6"
+        android:id="@+id/relative6">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_payment">
+
+            <TextView
+                android:id="@+id/payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/payments"
+                android:drawablePadding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Payments"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/add6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_add"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_payment">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expLayout_payment"
+                android:visibility="gone"
+                app:el_expanded="false">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/payments"
+                    android:text="Payments"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/paymentType"
+                    android:text="Payments Type"
+                    android:paddingTop="15dp"
+                    android:layout_below="@+id/payments"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative6"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative7"
+        android:layout_below="@+id/v7">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_setup">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/setUp"
+                android:text="Set Up"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:drawablePadding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:drawableLeft="@drawable/setup"/>
+
+            <TextView
+                android:id="@+id/addBut"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_add"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_setup">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/expLayout_setup">
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/generalSetup"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                <!--                    android:drawablePadding="20dp"-->
+                <!--                    android:paddingTop="15dp"-->
+                <!--                    android:paddingBottom="15dp"-->
+                <!--                    android:text="General Settings" />-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profile"
+                    android:text="Security Profile"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lookup"
+                    android:text="Lookups"
+                    android:layout_below="@+id/profile"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/program"
+                    android:text="Programs"
+                    android:layout_below="@+id/lookup"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tax"
+                    android:text="Taxes"
+                    android:layout_below="@+id/program"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+                <TextView
+                    android:id="@+id/immunization"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_below="@+id/tax"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawablePadding="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="Immunization" />
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relative7"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_8"
+        android:layout_below="@+id/v8">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_msg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/message"
+                android:text="Messaging"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:drawablePadding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:drawableLeft="@drawable/message"/>
+
+            <TextView
+                android:id="@+id/add8"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_add"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_msg">
+
+            <com.client.vcarecloud.utils.ExpandableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expLayout_msg"
+                android:visibility="gone"
+                app:el_expanded="false">
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:id="@+id/compose"-->
+                <!--                    android:text="Compose Message"-->
+                <!--                    android:paddingTop="15dp"-->
+                <!--                    android:paddingBottom="15dp"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:drawablePadding="20dp"-->
+                <!--                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sentMsg"
+                    android:text="Sent Messages"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_forward_ios_24"/>
+            </com.client.vcarecloud.utils.ExpandableLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v9"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rl_8"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="#33000000"/>
+
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/rl_9"-->
+    <!--        android:layout_below="@+id/v9">-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:id="@+id/reports"-->
+    <!--            android:text="Reports"-->
+    <!--            android:drawableLeft="@drawable/report2"-->
+    <!--            android:layout_marginStart="10dp"-->
+    <!--            android:layout_marginLeft="10dp"-->
+    <!--            android:drawablePadding="25dp"-->
+    <!--            android:paddingTop="15dp"-->
+    <!--            android:paddingBottom="15dp"-->
+    <!--            android:textStyle="bold" />-->
+    <!--    </RelativeLayout>-->
+</RelativeLayout>

@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateSecurityProfile">
+
+    <RelativeLayout
+        android:id="@+id/re1"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary">
+        <!--        android:background="@color/teal_200"-->
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_baseline_chevron_left_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="25dp"
+            android:text="Update Security Profile"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/re1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/profileName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:hint="Profile name"
+                    app:boxStrokeColor="@color/purple_700"
+                    app:hintTextColor="@color/purple_700">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profileName1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapWords"
+                        android:maxLength="26"
+                        android:padding="15dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/v1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/profileName"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/child"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v1"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:checked="false"
+                    android:text="Child"
+                    android:textAllCaps="false"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewChild"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/child"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:checked="false"
+                    android:text="View Child" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/child"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginLeft="190dp"
+                    android:checked="false"
+                    android:text="Add/Modify child" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/waitList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View WaitList"
+                    android:checked="false"
+                    android:layout_below="@+id/viewChild"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifywaitList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modify"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginLeft="190dp"
+                    android:checked="false"
+                    android:text="Modify WaitList" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/childCheckIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Child check In/Out"
+                    android:checked="false"
+                    android:layout_below="@+id/waitList"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/absent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifywaitList"
+                    android:checked="false"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginLeft="190dp"
+                    android:text="Child Absent"/>
+
+                <View
+                    android:id="@+id/v2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/absent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/employee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v2"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Employee"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewEmp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/employee"
+                    android:layout_marginStart="15dp"
+                    android:checked="false"
+                    android:layout_marginEnd="15dp"
+                    android:text="View Employee" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyemp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/employee"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginLeft="190dp"
+                    android:checked="false"
+                    android:text="Add/Modify Employee" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewShifts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewEmp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:checked="false"
+                    android:text="View Shifts" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyShift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyemp"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginLeft="190dp"
+                    android:checked="false"
+                    android:text="Add/Modify Shifts" />
+
+                <View
+                    android:id="@+id/v3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/viewShifts"
+                    android:layout_marginTop="8dp"
+                    android:checked="false"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/childActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v3"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Child Activity"
+                    android:textAllCaps="false"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewActPlanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/childActivity"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:checked="false"
+                    android:text="View Activity Planner" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/childActivity"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="View Events" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/dailyActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewActPlanner"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:text="View Daily Activities"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/camps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewEvents"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="View Camps" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyActPlanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dailyActivity"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:checked="false"
+                    android:text="Add/Modify Activity Planner" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyevents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/camps"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="Add/Modify events" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyActivities"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyActPlanner"
+                    android:layout_marginStart="15dp"
+                    android:checked="false"
+                    android:text="Add/Modify Daily Activities"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyCamps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyevents"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="Add/Modify Camps" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/activityCategories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyActivities"
+                    android:layout_marginStart="15dp"
+                    android:checked="false"
+                    android:text="Activity Categories"
+                    android:layout_marginLeft="15dp" />
+
+                <View
+                    android:id="@+id/v4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/activityCategories"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/meals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v4"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Meal"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewMealPlanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/meals"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:checked="false"
+                    android:text="View Meal Planner" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewDailyMeals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/meals"
+                    android:checked="false"
+                    android:layout_marginStart="170dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="View Daily Meals"
+                    android:layout_marginLeft="170dp"
+                    android:layout_marginRight="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/meals"
+                    android:checked="false"
+                    android:layout_marginStart="320dp"
+                    android:text="Menu"
+                    android:layout_marginLeft="320dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/mealPortion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/menu"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Meal Portion" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyMealPlanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/menu"
+                    android:layout_marginStart="170dp"
+                    android:layout_marginLeft="170dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp"
+                    android:checked="false"
+                    android:text="Add/Modify Meal Planner" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyDailyMeals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyMealPlanner"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Add/modify Daily Meals" />
+
+                <View
+                    android:id="@+id/v5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/modifyDailyMeals"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/billing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v5"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Billing"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewBasePackage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/billing"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="View Base Packages"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewaddCharges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/billing"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="View Additional Charges" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewAdjustment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewaddCharges"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="View Adjustments"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewaddCharges"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="View Discounts" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyBasePackage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:layout_below="@+id/viewDiscount"
+                    android:layout_marginStart="15dp"
+                    android:text="Add/Modify Base Packages"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyCharges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewDiscount"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="Add/Modify Additional Charges" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyAdjustment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyCharges"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:text="Add/Modify Adjustment"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyCharges"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="Add/Modify Discounts" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/childCloseOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:layout_below="@+id/modifyDiscount"
+                    android:layout_marginStart="15dp"
+                    android:text="Child CloseOut"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/generateInvoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/modifyDiscount"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginLeft="225dp"
+                    android:checked="false"
+                    android:text="Generate Invoice" />
+
+                <View
+                    android:id="@+id/v6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/generateInvoice"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v6"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Payments"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewPayments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/payment"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:checked="false"
+                    android:text="View Payments" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/modifyPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/payment"
+                    android:checked="false"
+                    android:layout_marginStart="190dp"
+                    android:text="Add/Modify Payments"
+                    android:layout_marginLeft="190dp"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/paymentType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewPayments"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:text="Payment Types"
+                    android:layout_marginLeft="15dp"/>
+
+                <View
+                    android:id="@+id/v7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/paymentType"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/setUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v7"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="SetUp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/generalSetup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/setUp"
+                    android:layout_marginStart="15dp"
+                    android:checked="false"
+                    android:text="General Settings"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/securityProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/setUp"
+                    android:checked="false"
+                    android:layout_marginStart="190dp"
+                    android:text="Security Profiles"
+                    android:layout_marginLeft="190dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/lookup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:layout_below="@+id/generalSetup"
+                    android:layout_marginStart="15dp"
+                    android:text="Lookups"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/programs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/securityProfile"
+                    android:checked="false"
+                    android:layout_marginStart="190dp"
+                    android:text="Programs"
+                    android:layout_marginLeft="190dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/immunization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lookup"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Immunizations" />
+
+                <View
+                    android:id="@+id/v8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/immunization"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v8"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Messaging"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/message"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:text="View Messages"
+                    android:layout_marginLeft="15dp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/sendMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/message"
+                    android:checked="false"
+                    android:layout_marginStart="190dp"
+                    android:text="Send Messages"
+                    android:layout_marginLeft="190dp"/>
+
+                <View
+                    android:id="@+id/v9"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/sendMsg"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v9"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Report"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/viewReport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/report"
+                    android:checked="false"
+                    android:layout_marginStart="15dp"
+                    android:text="View Reports"
+                    android:layout_marginLeft="15dp" />
+
+                <View
+                    android:id="@+id/v10"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/viewReport"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#33000000"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/v10"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/back_button"
+                    android:padding="18dp"
+                    android:text="Update"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EDFFFFFF"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</RelativeLayout>

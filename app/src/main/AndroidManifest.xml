@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.client.vcarecloud">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+
+    <application
+        android:name=".ApplicationClass"
+        android:allowBackup="true"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:icon="@drawable/vcarelogo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.VCareCloud"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".AdditionalCharges"
+            android:exported="false" />
+        <activity
+            android:name=".UpdatePrograms"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateSecurityProfile"
+            android:exported="false" />
+        <activity
+            android:name=".AddSecurityProfile"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateImmunization"
+            android:exported="false" />
+        <activity
+            android:name=".AddImmunization"
+            android:exported="false" />
+        <activity
+            android:name=".Immunization"
+            android:exported="false" />
+        <activity
+            android:name=".AddPrograms"
+            android:exported="false" />
+        <activity
+            android:name=".Programs"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateDiscount"
+            android:exported="false" />
+        <activity
+            android:name=".AddDiscounts"
+            android:exported="false" />
+        <activity
+            android:name=".Discounts"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateAdditionalCharges"
+            android:exported="false" />
+        <activity
+            android:name=".AddAdditionalCharges"
+            android:exported="false" />
+        <activity
+            android:name=".ClassList"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateBasePackage"
+            android:exported="false" />
+        <activity
+            android:name=".AddBasePackages"
+            android:exported="false" />
+        <activity
+            android:name=".BasePackages"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateAdjustment"
+            android:exported="false" />
+        <activity
+            android:name=".AddAdjustment"
+            android:exported="false" />
+        <activity
+            android:name=".Adjustments"
+            android:exported="false" />
+        <activity
+            android:name=".InvoiceDetails"
+            android:exported="false" />
+        <activity
+            android:name=".InvoiceList"
+            android:exported="false" />
+        <activity
+            android:name=".UpdatePaymentType"
+            android:exported="false" />
+        <activity
+            android:name=".AddPaymentType"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentType"
+            android:exported="false" />
+        <activity
+            android:name=".Payments"
+            android:exported="false" />
+        <activity
+            android:name=".ViewMessages"
+            android:exported="false" />
+        <activity
+            android:name=".SentMessages"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateMealPortion"
+            android:exported="false" />
+        <activity
+            android:name=".AddMealPortion"
+            android:exported="false" />
+        <activity
+            android:name=".MealPortion"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateMealMenu"
+            android:exported="false" />
+        <activity
+            android:name=".AddMealMenu"
+            android:exported="false" />
+        <activity
+            android:name=".MealMenu"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddSpecialNeeds"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateSpecialNeeds"
+            android:exported="false" />
+        <activity
+            android:name=".AddReligion"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateReligion"
+            android:exported="false" />
+        <activity
+            android:name=".SpecialNeeds"
+            android:exported="false" />
+        <activity
+            android:name=".Religion"
+            android:exported="false" />
+        <activity
+            android:name=".AddRelationship"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateRelationship"
+            android:exported="false" />
+        <activity
+            android:name=".Relationship"
+            android:exported="false" />
+        <activity
+            android:name=".AddOccupation"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateOccupation"
+            android:exported="false" />
+        <activity
+            android:name=".Occupation"
+            android:exported="false" />
+        <activity
+            android:name=".AddMedicationRoute"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateMedicationRoute"
+            android:exported="false" />
+        <activity
+            android:name=".MedicationRoute"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateMedicalCondition"
+            android:exported="false" />
+        <activity
+            android:name=".AddMedicalCondition"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateHealthInsurance"
+            android:exported="false" />
+        <activity
+            android:name=".MedicalCondition"
+            android:exported="false" />
+        <activity
+            android:name=".AddHealthInsurance"
+            android:exported="false" />
+        <activity
+            android:name=".HealthInsurance"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateHairstyle"
+            android:exported="false" />
+        <activity
+            android:name=".AddHairStyle"
+            android:exported="false" />
+        <activity
+            android:name=".HairStyle"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateEyeColor"
+            android:exported="false" />
+        <activity
+            android:name=".AddEyeColor"
+            android:exported="false" />
+        <activity
+            android:name=".EyeColor"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateLookupEventType"
+            android:exported="false" />
+        <activity
+            android:name=".AddLookupEventType"
+            android:exported="false" />
+        <activity
+            android:name=".EventTypeLookUp"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateEmpDesignation"
+            android:exported="false" />
+        <activity
+            android:name=".AddEmpDesignation"
+            android:exported="false" />
+        <activity
+            android:name=".EmpDesignation"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateAllergy"
+            android:exported="false" />
+        <activity
+            android:name=".AddAllergy"
+            android:exported="false" />
+        <activity
+            android:name=".Allergy"
+            android:exported="false" />
+        <activity
+            android:name=".Lookups"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateActivityCategory"
+            android:exported="false" />
+        <activity
+            android:name=".AddActivityCategory"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityCategory"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateTax"
+            android:exported="false" />
+        <activity
+            android:name=".AddTax"
+            android:exported="false" />
+        <activity
+            android:name=".Taxes"
+            android:exported="false" />
+
+        <activity
+        android:name=".AddEventTypeForUpdate"
+        android:exported="false"
+        tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".EventTypeForUpdate"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".UpdateEvent"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateEventTypeForUpdate"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".AddEvents"
+            android:exported="false" />
+        <activity
+            android:name=".Events"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateEventType"
+            android:exported="false" />
+        <activity
+            android:name=".AddEventTypes"
+            android:exported="false" />
+        <activity
+            android:name=".EventType"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateCamps"
+            android:exported="false" />
+        <activity
+            android:name=".AddCamps"
+            android:exported="false" />
+        <activity
+            android:name=".Camps"
+            android:exported="false" />
+        <activity
+            android:name=".SecurityProfile"
+            android:exported="true" />
+        <activity
+            android:name=".EmployeeInfo"
+            android:exported="true" />
+        <activity
+            android:name=".ParticularEmployeeAttendance"
+            android:exported="true" />
+        <activity
+            android:name=".AddShifts"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UpdateShifts"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EmployeeDashboard"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".WaitList"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Shifts"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EmployeeAttendance"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EmployeeList"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UpdateAbsentList"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddAbsent"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ChildInfo"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ChildrenAbsentList"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ChildrenList"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Dashboard"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ChangePassword"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ForgotPassword"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

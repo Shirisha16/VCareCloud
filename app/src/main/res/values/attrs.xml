@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ErrorState">
+        <attr name="state_error" format="boolean" />
+    </declare-styleable>
+    <!--Circle  ImageView -->
+
+
+    <declare-styleable name="ExpandableLayout">
+        <attr name="el_duration" format="integer" />
+        <attr name="el_expanded" format="boolean" />
+        <attr name="el_parallax" format="float" />
+
+        <attr name="android:orientation" />
+    </declare-styleable>
+
+    <declare-styleable name="BottomNavigationViewIndicator">
+        <attr name="targetBottomNavigation" format="reference"/>
+        <attr name="clippableBackground" format="reference|color"/>
+    </declare-styleable>
+</resources>

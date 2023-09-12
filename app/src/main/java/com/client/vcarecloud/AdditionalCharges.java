@@ -18,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.client.vcarecloud.Adapters.InvoiceListAdapter;
 import com.client.vcarecloud.Api.LoadDetails;
+import com.client.vcarecloud.Api.RestService;
 import com.client.vcarecloud.Api.VcareApi;
 import com.client.vcarecloud.Adapters.AdditionalChargesAdapter;
 import com.client.vcarecloud.models.AdditionalChargeListModel;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -54,6 +57,9 @@ public class AdditionalCharges extends AppCompatActivity implements LoadDetails{
     UserDetails userDetails;
     String custId,message,error;
 
+    List<AdditionalChargeListModel.Model> modelList;
+    AdditionalChargeListModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +79,7 @@ public class AdditionalCharges extends AppCompatActivity implements LoadDetails{
         userDetails=new UserDetails(AdditionalCharges.this);
 
         additionalChargeListModel=new AdditionalChargeListModel();
-        adapter= new AdditionalChargesAdapter(additionalChargeListModelArrayList,AdditionalCharges.this,loadDetails);
+//        adapter= new AdditionalChargesAdapter(additionalChargeListModelArrayList,AdditionalCharges.this,loadDetails);
 
         custId=getIntent().getStringExtra("custId");
 
@@ -144,75 +150,27 @@ public class AdditionalCharges extends AppCompatActivity implements LoadDetails{
         });
 
         additionalChargesList();
-
     }
 
     private void additionalChargesList() {
+        VcareApi api = RestService.getClient().create(VcareApi.class);
         progress.setVisibility(View.VISIBLE);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                .callTimeout(2, TimeUnit.MINUTES)
-                .connectTimeout(90, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(VcareApi.JSONURL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-
-        VcareApi api = retrofit.create(VcareApi.class);
-        Call<String> call=api.additionalCharges(userDetails.getCustId());
-        call.enqueue(new Callback<String>() {
+        Call<AdditionalChargeListModel> call=api.additionalCharges(userDetails.getCustId());
+        call.enqueue(new Callback<AdditionalChargeListModel>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<AdditionalChargeListModel> call, Response<AdditionalChargeListModel> response) {
                 progress.setVisibility(View.GONE);
-                if (response.body() != null) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body());
-                        if (jsonObject.optString("message").equalsIgnoreCase("Success")) {
-
-                            JSONArray jsonArray = jsonObject.getJSONArray("model");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                AdditionalChargeListModel model = new AdditionalChargeListModel();
-
-                                model.setChargeId(jsonObject1.getString("additionalChargeId"));
-                                model.setCustId(jsonObject1.getString("custId"));
-                                model.setDate(jsonObject1.getString("chargeDate"));
-                                model.setChargename(jsonObject1.getString("chargeName"));
-                                model.setAmount(jsonObject1.getString("chargeAmount"));
-                                model.setRefApplicableID(jsonObject1.getString("refApplicableID"));
-                                model.setClassName(jsonObject1.getString("className"));
-                                model.setChildName(jsonObject1.getString("childName"));
-                                model.setApplicableType(jsonObject1.getString("applicableType"));
-                                model.setDescription(jsonObject1.getString("chargeDescription"));
-                                model.setTaxesId(jsonObject1.getString("taxesId"));
-                                model.setTaxname(jsonObject1.getString("taxName"));
-
-                                additionalChargeListModelArrayList.add(model);
-                            }
-                            message = jsonObject.getString("message");
-                            error = jsonObject.getString("errorMessage");
-
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AdditionalCharges.this, RecyclerView.VERTICAL, false);
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                            adapter = new AdditionalChargesAdapter(additionalChargeListModelArrayList, AdditionalCharges.this, AdditionalCharges.this);
-                            recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-                        }else if (jsonObject.optString("message").equalsIgnoreCase("null")) {
-                            noData.setVisibility(View.VISIBLE);
-                        }
-                    } catch (JSONException e) {
-                        Toast.makeText(AdditionalCharges.this, "No Data Found", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
+                model = response.body();
+                modelList = model.getModel();
+                if (!modelList.isEmpty()) {
+                    initRecycler();
+                }else {
+                    noData.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<AdditionalChargeListModel> call, Throwable t) {
                 progress.setVisibility(View.GONE);
                 String message = "";
                 if (t instanceof UnknownHostException) {
@@ -226,24 +184,121 @@ public class AdditionalCharges extends AppCompatActivity implements LoadDetails{
         });
     }
 
+    private void initRecycler() { if (modelList!=null){
+        noData.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        adapter = new AdditionalChargesAdapter((ArrayList<AdditionalChargeListModel.Model>) modelList,this,this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+       }else {
+        recyclerView.setVisibility(View.GONE);
+        noData.setVisibility(View.VISIBLE);
+      }
+
+    }
+
+//    private void additionalChargesList() {
+//        progress.setVisibility(View.VISIBLE);
+//
+//        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+//                .callTimeout(2, TimeUnit.MINUTES)
+//                .connectTimeout(90, TimeUnit.SECONDS)
+//                .readTimeout(30, TimeUnit.SECONDS)
+//                .writeTimeout(30, TimeUnit.SECONDS);
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(VcareApi.JSONURL)
+//                .addConverterFactory(ScalarsConverterFactory.create())
+//                .client(httpClient.build())
+//                .build();
+//
+//        VcareApi api = retrofit.create(VcareApi.class);
+//        Call<String> call=api.additionalCharges(userDetails.getCustId());
+//        call.enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                progress.setVisibility(View.GONE);
+//                if (response.body() != null) {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response.body());
+//                        if (jsonObject.optString("message").equalsIgnoreCase("Success")) {
+//
+//                            JSONArray jsonArray = jsonObject.getJSONArray("model");
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+//                                AdditionalChargeListModel model = new AdditionalChargeListModel();
+//
+//                                model.setChargeId(jsonObject1.getString("additionalChargeId"));
+//                                model.setCustId(jsonObject1.getString("custId"));
+//                                model.setDate(jsonObject1.getString("chargeDate"));
+//                                model.setChargename(jsonObject1.getString("chargeName"));
+//                                model.setAmount(jsonObject1.getString("chargeAmount"));
+//                                model.setRefApplicableID(jsonObject1.getString("refApplicableID"));
+//                                model.setClassName(jsonObject1.getString("className"));
+//                                model.setChildName(jsonObject1.getString("childName"));
+//                                model.setApplicableType(jsonObject1.getString("applicableType"));
+//                                model.setDescription(jsonObject1.getString("chargeDescription"));
+//                                model.setTaxesId(jsonObject1.getString("taxesId"));
+//                                model.setTaxname(jsonObject1.getString("taxName"));
+//
+//                                additionalChargeListModelArrayList.add(model);
+//                            }
+//                            message = jsonObject.getString("message");
+//                            error = jsonObject.getString("errorMessage");
+//
+//                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AdditionalCharges.this, RecyclerView.VERTICAL, false);
+//                            recyclerView.setLayoutManager(linearLayoutManager);
+//                            adapter = new AdditionalChargesAdapter(additionalChargeListModelArrayList, AdditionalCharges.this, AdditionalCharges.this);
+//                            recyclerView.setAdapter(adapter);
+//                            adapter.notifyDataSetChanged();
+//                        }else if (jsonObject.optString("message").equalsIgnoreCase("null")) {
+//                            noData.setVisibility(View.VISIBLE);
+//                        }
+//                    } catch (JSONException e) {
+//                        Toast.makeText(AdditionalCharges.this, "No Data Found", Toast.LENGTH_SHORT).show();
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//                progress.setVisibility(View.GONE);
+//                String message = "";
+//                if (t instanceof UnknownHostException) {
+//                    message = "No internet connection!";
+//                } else {
+//                    message = "Something went wrong! try again";
+//                }
+//                Toast.makeText(AdditionalCharges.this, message, Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//        });
+//    }
+
     private void filter(String text) {
-        ArrayList<AdditionalChargeListModel> filteredNames=new ArrayList<>();
-        for (AdditionalChargeListModel s: additionalChargeListModelArrayList){
-            if ((s.getDate().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getChargename().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getApplicableType().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getAmount().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getChildName().toLowerCase().contains(text.toLowerCase()) ||
-                            (s.getClassName().toLowerCase().contains(text.toLowerCase())))) {
-                filteredNames.add(s);
-                noData.setVisibility(View.INVISIBLE);
+        ArrayList<AdditionalChargeListModel.Model> filteredNames=new ArrayList<>();
+        for (AdditionalChargeListModel.Model s: modelList) {
+            String amt = String.valueOf(s.getChargeAmount());
+            String classes=s.getClassName();
+            String child=s.getChildName();
+            if (s.getClassName() != null || s.getChildName()!=null){
+                if ((s.getChargeDate().toLowerCase().contains(text.toLowerCase())) ||
+                        (s.getChargeName().toLowerCase().contains(text.toLowerCase())) ||
+                        (s.getApplicableType().toLowerCase().contains(text.toLowerCase())) ||
+                        (amt.toLowerCase().contains(text.toLowerCase())) /*||
+                        (classes.toLowerCase().contains(text.toLowerCase()) ||
+                        (child.toLowerCase().contains(text.toLowerCase())))*/) {
+                    filteredNames.add(s);
+                    noData.setVisibility(View.INVISIBLE);
+                }
             }
         }
-        if (additionalChargeListModelArrayList.size() != 0) {
+        if (modelList.size() != 0) {
             if (filteredNames.isEmpty()) {
                 noData.setVisibility(View.VISIBLE);
             }
-
             adapter.filterList(filteredNames);
         }
     }

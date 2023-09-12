@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -37,13 +38,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class AdditionalChargesAdapter extends RecyclerView.Adapter<AdditionalChargesAdapter.MyViewHolder>{
-    ArrayList<AdditionalChargeListModel> additionalChargeListModelArrayList;
+    List<AdditionalChargeListModel.Model> additionalChargeListModelArrayList;
     Context context;
     LoadDetails loadDetails;
 
     RelativeLayout progressRelative;
 
-    public AdditionalChargesAdapter(ArrayList<AdditionalChargeListModel> additionalChargeListModelArrayList, Context context, LoadDetails loadDetails) {
+    public AdditionalChargesAdapter(ArrayList<AdditionalChargeListModel.Model> additionalChargeListModelArrayList, Context context, LoadDetails loadDetails) {
         this.additionalChargeListModelArrayList = additionalChargeListModelArrayList;
         this.context = context;
         this.loadDetails = loadDetails;
@@ -61,48 +62,69 @@ public class AdditionalChargesAdapter extends RecyclerView.Adapter<AdditionalCha
 
     @Override
     public void onBindViewHolder(@NonNull AdditionalChargesAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        String fromDate1 = additionalChargeListModelArrayList.get(position).getDate();
+
+        AdditionalChargeListModel.Model model=additionalChargeListModelArrayList.get(position);
+
+        String fromDate1 = additionalChargeListModelArrayList.get(position).getChargeDate();
         String[] parts = fromDate1.split("T");
         String daystartDate = parts[0];
         if (fromDate1 != null) {
             holder.date.setText(daystartDate);
         }
 
-        holder.chargeName.setText(additionalChargeListModelArrayList.get(position).getChargename());
-        holder.amount.setText(additionalChargeListModelArrayList.get(position).getAmount());
-        holder.applicationOn.setText(additionalChargeListModelArrayList.get(position).getApplicableType());
+        holder.chargeName.setText(model.getChargeName());
+        holder.amount.setText(String.valueOf(model.getChargeAmount()));
+        holder.applicationOn.setText(model.getApplicableType());
 
         String applicableType = additionalChargeListModelArrayList.get(position).getApplicableType();
         if (applicableType.equalsIgnoreCase("Child")) {
-            holder.applicationRef.setText(additionalChargeListModelArrayList.get(position).getChildName());
+            holder.applicationRef.setText(model.getChildName());
         }else {
-            holder.applicationRef.setText(additionalChargeListModelArrayList.get(position).getClassName());
+            holder.applicationRef.setText(model.getClassName());
         }
 
-        AdditionalChargeListModel additionalChargeListModel=additionalChargeListModelArrayList.get(position);
+//        String fromDate1 = additionalChargeListModelArrayList.get(position).getDate();
+//        String[] parts = fromDate1.split("T");
+//        String daystartDate = parts[0];
+//        if (fromDate1 != null) {
+//            holder.date.setText(daystartDate);
+//        }
+//
+//        holder.chargeName.setText(additionalChargeListModelArrayList.get(position).getChargename());
+//        holder.amount.setText(additionalChargeListModelArrayList.get(position).getAmount());
+//        holder.applicationOn.setText(additionalChargeListModelArrayList.get(position).getApplicableType());
+//
+//        String applicableType = additionalChargeListModelArrayList.get(position).getApplicableType();
+//        if (applicableType.equalsIgnoreCase("Child")) {
+//            holder.applicationRef.setText(additionalChargeListModelArrayList.get(position).getChildName());
+//        }else {
+//            holder.applicationRef.setText(additionalChargeListModelArrayList.get(position).getClassName());
+//        }
+//
+//        AdditionalChargeListModel additionalChargeListModel=additionalChargeListModelArrayList.get(position);
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id=additionalChargeListModel.getChargeId();
-                String empid=additionalChargeListModel.getEmpid();
-                String custid=additionalChargeListModel.getCustId();
-                String chargeId=additionalChargeListModel.getChargeId();
-                String chargeName=additionalChargeListModel.getChargename();
-                String description=additionalChargeListModel.getDescription();
-                String amount=additionalChargeListModel.getAmount();
-                String taxesId=additionalChargeListModel.getTaxesId();
-                String taxname=additionalChargeListModel.getTaxname();
-                String date=additionalChargeListModel.getDate();
-                String applicationType=additionalChargeListModel.getApplicableType();
-                String classid=additionalChargeListModel.getRefApplicableID();
-                String className=additionalChargeListModel.getClassName();
-                String childid=additionalChargeListModel.getRefApplicableID();
-                String childName=additionalChargeListModel.getChildName();
+//                String id= String.valueOf(model.getAdditionalChargeId());
+//                String empid=model.getEmpid();
+                String custid= String.valueOf(model.getCustId());
+                String chargeId= String.valueOf(model.getAdditionalChargeId());
+                String chargeName=model.getChargeName();
+                String description=model.getChargeDescription();
+                String amount= String.valueOf(model.getChargeAmount());
+                String taxesId= String.valueOf(model.getTaxesId());
+                String taxname=model.getTaxName();
+                String date=model.getChargeDate();
+                String applicationType=model.getApplicableType();
+                String classid= String.valueOf(model.getRefApplicableID());
+                String className=model.getClassName();
+                String childid= String.valueOf(model.getRefApplicableID());
+                String childName=model.getChildName();
 
                 Intent intent=new Intent(context, UpdateAdditionalCharges.class);
-                intent.putExtra("Id",id);
-                intent.putExtra("empid",empid);
+//                intent.putExtra("Id",id);
+                intent.putExtra("empid",0);
                 intent.putExtra("custId",custid);
                 intent.putExtra("additionalChargeId",chargeId);
                 intent.putExtra("chargeName",chargeName);
@@ -112,20 +134,20 @@ public class AdditionalChargesAdapter extends RecyclerView.Adapter<AdditionalCha
                 intent.putExtra("taxName",taxname);
                 intent.putExtra("chargeDate",date);
                 intent.putExtra("applicableType",applicationType);
-//                intent.putExtra("refApplicableID",childid);
-//                intent.putExtra("Applicableonclass",classid);
+                intent.putExtra("refApplicableID",childid);
+                intent.putExtra("Applicableonclass",classid);
 
                 if(applicationType.equalsIgnoreCase("Child")){
-                    intent.putExtra("Applicableonchild",additionalChargeListModelArrayList.get(position).getRefApplicableID());
+                    intent.putExtra("Applicableonchild",model.getRefApplicableID());
                 }else{
-                    intent.putExtra("Applicableonclass",additionalChargeListModelArrayList.get(position).getRefApplicableID());
+                    intent.putExtra("Applicableonclass",model.getRefApplicableID());
                 }
 
                 intent.putExtra("className",className);
 //                intent.putExtra("Applicableonchild",childid);
                 intent.putExtra("childName",childName);
 
-                intent.putExtra("list",additionalChargeListModel);
+//                intent.putExtra("list",model);
                 context.startActivity(intent);
             }
         });
@@ -151,7 +173,7 @@ public class AdditionalChargesAdapter extends RecyclerView.Adapter<AdditionalCha
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         VcareApi vcareApi=retrofit.create(VcareApi.class);
-                        Call<String> call=vcareApi.delete_additionalCharge(additionalChargeListModel.getChargeId(),"0");
+                        Call<String> call=vcareApi.delete_additionalCharge(String.valueOf(model.getAdditionalChargeId()),"0");
                         call.enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
@@ -219,7 +241,7 @@ public class AdditionalChargesAdapter extends RecyclerView.Adapter<AdditionalCha
             delete=itemView.findViewById(R.id.delete);
         }
     }
-    public void filterList(ArrayList<AdditionalChargeListModel> filteredNames) {
+    public void filterList(ArrayList<AdditionalChargeListModel.Model> filteredNames) {
         this.additionalChargeListModelArrayList = filteredNames;
         notifyDataSetChanged();
     }

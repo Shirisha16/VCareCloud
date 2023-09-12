@@ -38,12 +38,12 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder>{
 
-    ArrayList<EventModel> eventsModelArrayList;
+    ArrayList<EventModel.Model> eventsModelArrayList;
     Context context;
     LoadDetails loadDetails;
     RelativeLayout progressRelative;
 
-    public EventAdapter(ArrayList<EventModel> eventsModelArrayList, Context context, LoadDetails loadDetails) {
+    public EventAdapter(ArrayList<EventModel.Model> eventsModelArrayList, Context context, LoadDetails loadDetails) {
         this.eventsModelArrayList = eventsModelArrayList;
         this.context = context;
         this.loadDetails = loadDetails;
@@ -61,7 +61,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull EventAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.eventName.setText(eventsModelArrayList.get(position).getEventName());
-        holder.eventType.setText(eventsModelArrayList.get(position).getEventsType());
+        holder.eventType.setText(eventsModelArrayList.get(position).getEventtype());
         holder.location.setText(eventsModelArrayList.get(position).getEventLocation());
 
 //        String eventDetails=eventsModelArrayList.get(position).getEventDetails();
@@ -83,18 +83,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         }
         holder.toDate.setText(toDate1);
 
-        EventModel eventModel=eventsModelArrayList.get(position);
+        EventModel.Model eventModel=eventsModelArrayList.get(position);
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String eventid = eventModel.getEventID();
-                String custid = eventModel.getCustId();
-                String typeId = eventModel.getTypeId();
-                String eventType=eventModel.getEventsType();
+                String eventid = String.valueOf(eventModel.getEventID());
+                String custid = String.valueOf(eventModel.getCustId());
+                String typeId = String.valueOf(eventModel.getTypeId());
+                String eventType=eventModel.getEventtype();
                 String eventname = eventModel.getEventName();
                 String location = eventModel.getEventLocation();
-                String details = eventModel.getEventDetails();
+                String details = String.valueOf(eventModel.getEventDetails());
                 String fromDate = eventModel.getFromDate();
                 String toDate = eventModel.getToDate();
 
@@ -108,11 +108,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                 intent.putExtra("eventDetails", details);
                 intent.putExtra("fromDate", fromDate);
                 intent.putExtra("toDate", toDate);
-                intent.putExtra("list",eventModel);
+//                intent.putExtra("list",eventModel);
 
                 context.startActivity(intent);
 
-//                Toast.makeText(context, ""+typeId+eventType, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -199,7 +198,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         VcareApi vcareApi=retrofit.create(VcareApi.class);
-                        Call<String> call=vcareApi.delete_events(eventModel.getEventID(),"0");
+                        Call<String> call=vcareApi.delete_events(String.valueOf(eventModel.getEventID()),"0");
                         call.enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
@@ -270,7 +269,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             remove=itemView.findViewById(R.id.delete);
         }
     }
-    public void filterList(ArrayList<EventModel> filteredNames) {
+    public void filterList(ArrayList<EventModel.Model> filteredNames) {
         this.eventsModelArrayList = filteredNames;
         notifyDataSetChanged();
     }

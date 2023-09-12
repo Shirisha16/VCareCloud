@@ -9,9 +9,9 @@ import com.google.gson.annotations.SerializedName;
         @Expose
         private String empid;
 
-        @SerializedName("taxesId")
-        @Expose
-        private String taxId;
+//        @SerializedName("taxesId")
+//        @Expose
+//        private String taxId;
 
         @SerializedName("custId")
         @Expose
@@ -61,13 +61,13 @@ import com.google.gson.annotations.SerializedName;
             this.empid = empid;
         }
 
-        public String getTaxId() {
-            return taxId;
-        }
-
-        public void setTaxId(String taxId) {
-            this.taxId = taxId;
-        }
+//        public String getTaxId() {
+//            return taxId;
+//        }
+//
+//        public void setTaxId(String taxId) {
+//            this.taxId = taxId;
+//        }
 
         public String getCustId() {
             return custId;

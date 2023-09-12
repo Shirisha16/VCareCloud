@@ -2,6 +2,7 @@ package com.client.vcarecloud.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +19,16 @@ import com.client.vcarecloud.R;
 import com.client.vcarecloud.models.InvoiceListModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.MyViewHolder>{
-    ArrayList<InvoiceListModel> invoiceListModelArrayList;
+    List<InvoiceListModel.Model> invoiceListModelArrayList;
     Context context;
     LoadDetails loadDetails;
 
     RelativeLayout progressRelative;
 
-    public InvoiceListAdapter(ArrayList<InvoiceListModel> invoiceListModelArrayList, Context context, LoadDetails loadDetails) {
+    public InvoiceListAdapter(List<InvoiceListModel.Model> invoiceListModelArrayList, Context context, LoadDetails loadDetails) {
         this.invoiceListModelArrayList = invoiceListModelArrayList;
         this.context = context;
         this.loadDetails = loadDetails;
@@ -45,26 +47,46 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
     @Override
     public void onBindViewHolder(@NonNull InvoiceListAdapter.MyViewHolder holder, int position) {
 
-        holder.invoice_no.setText(invoiceListModelArrayList.get(position).getInvoiceNo());
-        holder.child.setText(invoiceListModelArrayList.get(position).getChildName());
-        holder.amount.setText(invoiceListModelArrayList.get(position).getInvoiceAmount());
+        InvoiceListModel.Model model=invoiceListModelArrayList.get(position);
 
-        String invoiceMonth=invoiceListModelArrayList.get(position).getInvoiceMonth();
-        String invoiceYear=invoiceListModelArrayList.get(position).getInvoiceYear();
+        holder.invoice_no.setText(model.getInvoiceNo());
+        holder.child.setText(model.getChildname());
+        holder.amount.setText(String.valueOf(model.getInvoiceAmount()));
+        String invoiceMonth= String.valueOf(model.getInvoiceMonth());
+        String invoiceYear= String.valueOf(model.getInvoiceYear());
         String invoiceFor= invoiceMonth + "-" + invoiceYear;
         if (invoiceFor!=null){
             holder.invoice_for.setText(invoiceFor);
         }
 
-        String status1=invoiceListModelArrayList.get(position).getPayAmount();
+        String status1=String.valueOf(model.getPayAmount());
         if(status1.equals("0.0")){
             holder.status.setText("Pending");
         }else{
             holder.status.setText("Paid");
         }
-//        holder.status.setText(invoiceListModelArrayList.get(position).getStatus());
 
-        InvoiceListModel model=invoiceListModelArrayList.get(position);
+//        String childName=invoiceListModelArrayList.get(position).getChildName();
+//        holder.invoice_no.setText(invoiceListModelArrayList.get(position).getInvoiceNo());
+//        holder.child.setText(childName);
+//        holder.amount.setText(invoiceListModelArrayList.get(position).getInvoiceAmount());
+//
+//        String invoiceMonth=invoiceListModelArrayList.get(position).getInvoiceMonth();
+//        String invoiceYear=invoiceListModelArrayList.get(position).getInvoiceYear();
+//        String invoiceFor= invoiceMonth + "-" + invoiceYear;
+//        if (invoiceFor!=null){
+//            holder.invoice_for.setText(invoiceFor);
+//        }
+//
+//        String status1=invoiceListModelArrayList.get(position).getPayAmount();
+//        if(status1.equals("0.0")){
+//            holder.status.setText("Pending");
+//        }else{
+//            holder.status.setText("Paid");
+//        }
+////        holder.status.setText(invoiceListModelArrayList.get(position).getStatus());
+//
+//        InvoiceListModel model=invoiceListModelArrayList.get(position);
 //        InvoiceDetailsModel model=invoiceDetailsModelArrayList.get(position);
 //        invoiceDetailsModelArrayList=new ArrayList<>();
 //        InvoiceDetailsModel model=invoiceDetailsModelArrayList.get(0);
@@ -72,32 +94,30 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String headerId=model.getHeaderId();
-                String custId=model.getCustId();
-                String classId=model.getClassId();
-                String classname=model.getClassName();
+                String headerId=String.valueOf(model.getHeaderId());
+                String custId=String.valueOf(model.getCustId());
+                String classname=model.getClassname();
                 String invoiceNo=model.getInvoiceNo();
-                String month=model.getInvoiceMonth();
-                String year=model.getInvoiceYear();
-                String period_from=model.getInvoicePeriod_From();
-                String period_to=model.getInvoicePeriod_To();
+                String month=String.valueOf(model.getInvoiceMonth());
+                String year=String.valueOf(model.getInvoiceYear());
+                String period_from=model.getInvoicePeriodFrom();
+                String period_to=model.getInvoicePeriodTo();
                 String date=model.getInvoiceDate();
                 String dueDate=model.getInvoiceDueDate();
                 String paymentDate=model.getPaymentDate();
-                String childId=model.getChildId();
-                String childname=model.getChildName();
-                String charge=model.getTotalChargeAmount();
-                String discount=model.getTotalDiscountAmount();
-                String tax=model.getTotalTaxAmount();
-                String adjustment=model.getTotalAdjustmentAmount();
-                String invoiceAmount=model.getInvoiceAmount();
-                String payamount=model.getPayAmount();
-                String latePayment=model.getLatePayment();
+                String childId=String.valueOf(model.getChildId());
+                String childname=model.getChildname();
+                String charge=String.valueOf(model.getTotalChargeAmount());
+                String discount=String.valueOf(model.getTotalDiscountAmount());
+                String tax=String.valueOf(model.getTotalTaxAmount());
+                String adjustment=String.valueOf(model.getTotalAdjustmentAmount());
+                String invoiceAmount=String.valueOf(model.getInvoiceAmount());
+                String payamount=String.valueOf(model.getPayAmount());
+                String latePayment=String.valueOf(model.getLatePayment());
 
                 Intent intent = new Intent(context, InvoiceDetails.class);
                 intent.putExtra("headerId", headerId);
                 intent.putExtra("custId", custId);
-                intent.putExtra("classId",classId);
                 intent.putExtra("classname", classname);
                 intent.putExtra("invoiceNo", invoiceNo);
                 intent.putExtra("invoiceMonth", month);
@@ -143,7 +163,7 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
         }
     }
 
-    public void filterList(ArrayList<InvoiceListModel> filteredNames) {
+    public void filterList(ArrayList<InvoiceListModel.Model> filteredNames) {
         this.invoiceListModelArrayList = filteredNames;
         notifyDataSetChanged();
     }

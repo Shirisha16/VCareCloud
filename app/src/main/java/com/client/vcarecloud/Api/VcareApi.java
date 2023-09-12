@@ -25,12 +25,16 @@ import com.client.vcarecloud.models.AddProgramsModel;
 import com.client.vcarecloud.models.AddProgramsResponse;
 import com.client.vcarecloud.models.AddSecurityProfileModel;
 import com.client.vcarecloud.models.AddSecurityProfileResponse;
+import com.client.vcarecloud.models.AdditionalChargeListModel;
 import com.client.vcarecloud.models.AdditionalChargeResponse;
 import com.client.vcarecloud.models.AdditionalChargesModel;
+import com.client.vcarecloud.models.BasePackagesModel;
 import com.client.vcarecloud.models.ChildCheckInModel;
+import com.client.vcarecloud.models.EventModel;
 import com.client.vcarecloud.models.GetChildListResponseModel;
 import com.client.vcarecloud.models.GetClassList;
 import com.client.vcarecloud.models.GetClassListResponseModel;
+import com.client.vcarecloud.models.InvoiceListModel;
 import com.client.vcarecloud.models.MenuModelMeal;
 import com.client.vcarecloud.models.MealMenuResponse;
 import com.client.vcarecloud.models.AddShiftModel;
@@ -98,10 +102,10 @@ import retrofit2.http.Query;
 
 public interface VcareApi {
 //    String JSONURL = "https://testdaycareonlinewebapi.azurewebsites.net/"; //  TESTING URL
-//      String JSONURL = "https://testvcarewebapi.azurewebsites.net/"; //  TESTING URL
+      String JSONURL = "https://testvcarewebapi.azurewebsites.net/"; //  TESTING URL
 
 
-    String JSONURL = "https://proddaycareonlinewebapi.azurewebsites.net/"; //Production Testing URL
+//    String JSONURL = "https://proddaycareonlinewebapi.azurewebsites.net/"; //Production Testing URL
 
     @GET("api/Account/Login/{UserName}/{Password}")
     Call<String> login_page(@Path(value = "UserName", encoded = true) String username,
@@ -261,7 +265,7 @@ public interface VcareApi {
     Call<String> delete_activity(@Path("id") String id,@Path("EmpId")String empid);
 
     @GET("api/Events/getevents/{Custid}")
-    Call<String> events(@Path(value = "Custid",encoded = true)String custId);
+    Call<EventModel> events(@Path(value = "Custid",encoded = true)String custId);
 
     @POST("api/Events/AddEvents/{EmpId}")
     Call<AddEventResponse> addevents(@Path("EmpId")String empid,
@@ -367,7 +371,7 @@ public interface VcareApi {
                                                  @Path(value = "EmpId",encoded = true)String empId,
                                                  @Body UpdateLookupTypeModel updateLookupTypeModel);
     @GET("api/Invoice/getInvoices/{Custid}")
-    Call<String> invoice_list(@Path(value = "Custid",encoded = true)String custId);
+    Call<InvoiceListModel> invoice_list(@Path(value = "Custid",encoded = true)String custId);
 
     @GET("api/Invoice/getInvoiceDetail/{id}")
     Call<String> invoice_details(@Path(value = "id",encoded = true)String custId);
@@ -388,7 +392,7 @@ public interface VcareApi {
     Call<String> delete_adjustment(@Path("id")String id,@Path("EmpId")String empid);
 
     @GET("api/Packages/getpackages/{Custid}")
-    Call<String> basePackages(@Path(value = "Custid", encoded = true)String custid);
+    Call<BasePackagesModel> basePackages(@Path(value = "Custid", encoded = true)String custid);
 
     @POST("api/Packages/AddPackage/{EmpId}")
     Call<AddBasePackageResponse> add_package(@Path("EmpId")String empid,
@@ -403,7 +407,7 @@ public interface VcareApi {
     Call<String> delete_package(@Path("id")String id,@Path("EmpId")String empid);
 
     @GET("api/AdditionalCharges/getaddcharges/{Custid}")
-    Call<String> additionalCharges(@Path(value = "Custid", encoded = true)String custid);
+    Call<AdditionalChargeListModel> additionalCharges(@Path(value = "Custid", encoded = true)String custid);
 
     @POST("api/AdditionalCharges/AddAdditionalCharges/{EmpId}")
     Call<AdditionalChargeResponse> add_additionalCharge(@Path("EmpId")String empid,

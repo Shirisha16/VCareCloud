@@ -28,7 +28,6 @@ import com.client.vcarecloud.models.EmpCheckInRequest;
 import com.client.vcarecloud.models.EmpCheckInResponse;
 import com.client.vcarecloud.models.ParticularEmployeeAttendanceModel;
 import com.client.vcarecloud.models.UserDetails;
-import com.client.vcarecloud.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,16 +102,16 @@ public class ParticularEmployeeAttendance extends AppCompatActivity implements L
         builder = new AlertDialog.Builder(ParticularEmployeeAttendance.this);
         empId = userDetails.getEmpID();
 
-        if (empMessage.equalsIgnoreCase("Checked out Successfully")) {
-            checkIn.setText("CheckIn");
-            checkIn.setBackgroundResource(R.color.lightGreen);
-        } else if (empMessage.equalsIgnoreCase("Checked in Successfully")){
-            checkIn.setText("CheckOut");
-            checkIn.setBackgroundResource(R.color.lightRed);
-        }else{
-            checkIn.setText("CheckOut");
-            checkIn.setBackgroundResource(R.color.lightRed);
-        }
+//        if (empMessage.equalsIgnoreCase("Checked out Successfully")) {
+//            checkIn.setText("CheckIn");
+//            checkIn.setBackgroundResource(R.color.lightGreen);
+//        } else if (empMessage.equalsIgnoreCase("Checked in Successfully")){
+//            checkIn.setText("CheckOut");
+//            checkIn.setBackgroundResource(R.color.lightRed);
+//        }else{
+//            checkIn.setText("CheckOut");
+//            checkIn.setBackgroundResource(R.color.lightRed);
+//        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,13 +131,24 @@ public class ParticularEmployeeAttendance extends AppCompatActivity implements L
         checkIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                checkIn.setEnabled(false);
-                String mess  = userDetails.getMessage();
 
-                if (model.getShiftEndDate().equalsIgnoreCase("Not Checked Out")){
-//                    checkIn.setText("CheckIn");
+                if(model==null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ParticularEmployeeAttendance.this);
+                    builder.setMessage("Do you want to check In?");
+                    builder.setPositiveButton("ok", (dialogInterface, i) -> {
+                        empCheckInResponse(empId, employeeId, custId, dates);
+                    });
+                    builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(ParticularEmployeeAttendance.this, ParticularEmployeeAttendance.class);
+                            startActivity(intent);
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else if (model.getShiftEndDate().equalsIgnoreCase("Not Checked Out")) {
                     userDetails.setMessage("");
-                    String mess1  = userDetails.getMessage();
                     AlertDialog.Builder builder = new AlertDialog.Builder(ParticularEmployeeAttendance.this);
                     builder.setMessage("Do you want to check Out?");
                     builder.setPositiveButton("ok", (dialogInterface, i) -> {
@@ -153,8 +163,7 @@ public class ParticularEmployeeAttendance extends AppCompatActivity implements L
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }else if (userDetails.getMessage().equalsIgnoreCase("Checked in Successfully")) {
-//                    checkIn.setText("CheckOut");
+                } else if (userDetails.getMessage().equalsIgnoreCase("Checked in Successfully")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ParticularEmployeeAttendance.this);
                     builder.setMessage("Do you want to check Out?");
                     builder.setPositiveButton("ok", (dialogInterface, i) -> {
@@ -169,9 +178,7 @@ public class ParticularEmployeeAttendance extends AppCompatActivity implements L
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }
-                else if(empMessage.equalsIgnoreCase("Checked out Successfully")) {
-
+                } else if (empMessage.equalsIgnoreCase("Checked out Successfully")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ParticularEmployeeAttendance.this);
                     builder.setMessage("Do you want to check In");
                     builder.setPositiveButton("ok", (dialogInterface, i) -> {
@@ -188,23 +195,6 @@ public class ParticularEmployeeAttendance extends AppCompatActivity implements L
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-                else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ParticularEmployeeAttendance.this);
-                    builder.setMessage("Do you want to check In?");
-                    builder.setPositiveButton("ok", (dialogInterface, i) -> {
-                        empCheckInResponse(empId, employeeId, custId, dates);
-                    });
-                    builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = new Intent(ParticularEmployeeAttendance.this, ParticularEmployeeAttendance.class);
-                            startActivity(intent);
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-//                Utils.preventTwoClick(view);
             }
         });
 
@@ -439,6 +429,8 @@ public class ParticularEmployeeAttendance extends AppCompatActivity implements L
                     }
                 }
                 else {
+                    checkIn.setText("CheckIn");
+                    checkIn.setBackgroundResource(R.color.lightGreen);
                     progress.setVisibility(View.GONE);
                     noData.setVisibility(View.VISIBLE);
                 }

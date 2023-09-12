@@ -73,8 +73,6 @@ public class AddTax extends AppCompatActivity {
 
         taxId = userDetails.getTaxId();
         custId = userDetails.getCustId();
-//        Toast.makeText(AddTax.this, ""+empId+custId+taxId+tax_name+tax_rate+taxStatus, Toast.LENGTH_SHORT).show();
-
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +112,7 @@ public class AddTax extends AppCompatActivity {
                 .build();
         VcareApi api = retrofit.create(VcareApi.class);
         AddTaxModel addTaxModel = new AddTaxModel();
-        addTaxModel.setTaxId(taxId);
+//        addTaxModel.setTaxId(taxId);
         addTaxModel.setCustId(custId);
         addTaxModel.setTaxName(tax_name);
         addTaxModel.setTaxRate(tax_rate);

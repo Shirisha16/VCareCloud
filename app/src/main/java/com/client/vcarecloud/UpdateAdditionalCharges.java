@@ -297,7 +297,7 @@ public class UpdateAdditionalCharges extends AppCompatActivity {
             }
         });
 
-    classname.setOnClickListener(new View.OnClickListener() {
+        classname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 applicationType_spin.getText().clear();
@@ -380,7 +380,7 @@ public class UpdateAdditionalCharges extends AppCompatActivity {
                 .build();
 
         VcareApi api = retrofit.create(VcareApi.class);
-        updateAdditionalChargesModel.setEmpid(empid);
+        updateAdditionalChargesModel.setEmpid("0");
         updateAdditionalChargesModel.setCustId(custId);
         updateAdditionalChargesModel.setChargeId(chargeId);
         updateAdditionalChargesModel.setChargeName(chargeName);

@@ -183,7 +183,7 @@ public class Adjustments extends AppCompatActivity implements LoadDetails {
                                 model.setCustId(jsonObject1.getString("custId"));
                                 model.setAdjustType(jsonObject1.getString("adjustType"));
                                 model.setDescription(jsonObject1.getString("adjustDescription"));
-                                model.setRefApplicableID(jsonObject1.getString("refApplicableID"));
+//                                model.setRefApplicableID(jsonObject1.getString("refApplicableID"));
                                 model.setAmount(jsonObject1.getString("amount"));
                                 model.setAdjustAmount(jsonObject1.getString("adjustAmount"));
                                 model.setAdjustDate(jsonObject1.getString("adjustDate"));

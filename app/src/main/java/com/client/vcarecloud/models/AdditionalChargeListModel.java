@@ -1,130 +1,190 @@
 package com.client.vcarecloud.models;
 
-import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-@SuppressWarnings("serial")
-public class AdditionalChargeListModel implements Serializable {
-    String ChargeId,custId,date,chargename,amount,refApplicableID,className,childName,
-            applicableType,description,taxesId,taxname,classid,childid,empid;
+import java.util.List;
 
-    public String getChargeId() {
-        return ChargeId;
+public class AdditionalChargeListModel {
+
+    @SerializedName("model")
+    @Expose
+    private List<Model> model;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("didError")
+    @Expose
+    private Boolean didError;
+    @SerializedName("errorMessage")
+    @Expose
+    private Object errorMessage;
+
+    public List<Model> getModel() {
+        return model;
     }
 
-    public void setChargeId(String chargeId) {
-        ChargeId = chargeId;
+    public void setModel(List<Model> model) {
+        this.model = model;
     }
 
-    public String getCustId() {
-        return custId;
+    public String getMessage() {
+        return message;
     }
 
-    public void setCustId(String custId) {
-        this.custId = custId;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getDate() {
-        return date;
+    public Boolean getDidError() {
+        return didError;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDidError(Boolean didError) {
+        this.didError = didError;
     }
 
-    public String getChargename() {
-        return chargename;
+    public Object getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setChargename(String chargename) {
-        this.chargename = chargename;
+    public void setErrorMessage(Object errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
-    public String getAmount() {
-        return amount;
-    }
+    public class Model {
 
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
+        @SerializedName("additionalChargeId")
+        @Expose
+        private Integer additionalChargeId;
+        @SerializedName("custId")
+        @Expose
+        private Integer custId;
+        @SerializedName("chargeDate")
+        @Expose
+        private String chargeDate;
+        @SerializedName("chargeName")
+        @Expose
+        private String chargeName;
+        @SerializedName("chargeAmount")
+        @Expose
+        private Double chargeAmount;
+        @SerializedName("refApplicableID")
+        @Expose
+        private Integer refApplicableID;
+        @SerializedName("className")
+        @Expose
+        private String className;
+        @SerializedName("childName")
+        @Expose
+        private String childName;
+        @SerializedName("applicableType")
+        @Expose
+        private String applicableType;
+        @SerializedName("chargeDescription")
+        @Expose
+        private String chargeDescription;
+        @SerializedName("taxesId")
+        @Expose
+        private Integer taxesId;
+        @SerializedName("taxName")
+        @Expose
+        private String taxName;
 
-    public String getRefApplicableID() {
-        return refApplicableID;
-    }
+        public Integer getAdditionalChargeId() {
+            return additionalChargeId;
+        }
 
-    public void setRefApplicableID(String refApplicableID) {
-        this.refApplicableID = refApplicableID;
-    }
+        public void setAdditionalChargeId(Integer additionalChargeId) {
+            this.additionalChargeId = additionalChargeId;
+        }
 
-    public String getClassName() {
-        return className;
-    }
+        public Integer getCustId() {
+            return custId;
+        }
 
-    public void setClassName(String className) {
-        this.className = className;
-    }
+        public void setCustId(Integer custId) {
+            this.custId = custId;
+        }
 
-    public String getChildName() {
-        return childName;
-    }
+        public String getChargeDate() {
+            return chargeDate;
+        }
 
-    public void setChildName(String childName) {
-        this.childName = childName;
-    }
+        public void setChargeDate(String chargeDate) {
+            this.chargeDate = chargeDate;
+        }
 
-    public String getApplicableType() {
-        return applicableType;
-    }
+        public String getChargeName() {
+            return chargeName;
+        }
 
-    public void setApplicableType(String applicableType) {
-        this.applicableType = applicableType;
-    }
+        public void setChargeName(String chargeName) {
+            this.chargeName = chargeName;
+        }
 
-    public String getDescription() {
-        return description;
-    }
+        public Double getChargeAmount() {
+            return chargeAmount;
+        }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+        public void setChargeAmount(Double chargeAmount) {
+            this.chargeAmount = chargeAmount;
+        }
 
-    public String getTaxesId() {
-        return taxesId;
-    }
+        public Integer getRefApplicableID() {
+            return refApplicableID;
+        }
 
-    public void setTaxesId(String taxesId) {
-        this.taxesId = taxesId;
-    }
+        public void setRefApplicableID(Integer refApplicableID) {
+            this.refApplicableID = refApplicableID;
+        }
 
-    public String getTaxname() {
-        return taxname;
-    }
+        public String getClassName() {
+            return className;
+        }
 
-    public void setTaxname(String taxname) {
-        this.taxname = taxname;
-    }
+        public void setClassName(String className) {
+            this.className = className;
+        }
 
-    public String getClassid() {
-        return classid;
-    }
+        public String getChildName() {
+            return childName;
+        }
 
-    public void setClassid(String classid) {
-        this.classid = classid;
-    }
+        public void setChildName(String childName) {
+            this.childName = childName;
+        }
 
-    public String getChildid() {
-        return childid;
-    }
+        public String getApplicableType() {
+            return applicableType;
+        }
 
-    public void setChildid(String childid) {
-        this.childid = childid;
-    }
+        public void setApplicableType(String applicableType) {
+            this.applicableType = applicableType;
+        }
 
-    public String getEmpid() {
-        return empid;
-    }
+        public String getChargeDescription() {
+            return chargeDescription;
+        }
 
-    public void setEmpid(String empid) {
-        this.empid = empid;
-    }
+        public void setChargeDescription(String chargeDescription) {
+            this.chargeDescription = chargeDescription;
+        }
 
+        public Integer getTaxesId() {
+            return taxesId;
+        }
+
+        public void setTaxesId(Integer taxesId) {
+            this.taxesId = taxesId;
+        }
+
+        public String getTaxName() {
+            return taxName;
+        }
+
+        public void setTaxName(String taxName) {
+            this.taxName = taxName;
+        }
+    }
 }

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -38,13 +39,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class BasePackagesAdapter extends RecyclerView.Adapter<BasePackagesAdapter.MyViewHolder> {
 
-    ArrayList<BasePackagesModel> basePackagesModelArrayList;
+    List<BasePackagesModel.Model> basePackagesModelArrayList;
     Context context;
     LoadDetails loadDetails;
 
     RelativeLayout progressRelative;
 
-    public BasePackagesAdapter(ArrayList<BasePackagesModel> basePackagesModelArrayList, Context context, LoadDetails loadDetails) {
+    public BasePackagesAdapter(List<BasePackagesModel.Model> basePackagesModelArrayList, Context context, LoadDetails loadDetails) {
         this.basePackagesModelArrayList = basePackagesModelArrayList;
         this.context = context;
         this.loadDetails = loadDetails;
@@ -61,10 +62,12 @@ public class BasePackagesAdapter extends RecyclerView.Adapter<BasePackagesAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.packageName.setText(basePackagesModelArrayList.get(position).getPackageName());
-        holder.amount.setText(basePackagesModelArrayList.get(position).getAmount());
-        holder.tax.setText(basePackagesModelArrayList.get(position).getTax());
-        holder.className.setText(basePackagesModelArrayList.get(position).getClasses());
+        BasePackagesModel.Model model=basePackagesModelArrayList.get(position);
+
+        holder.packageName.setText(model.getPackageName());
+        holder.amount.setText(String.valueOf(model.getPackageAmount()));
+        holder.tax.setText(String.valueOf(model.getTax()));
+        holder.className.setText(String.valueOf(model.getClasses()));
 
         String status=basePackagesModelArrayList.get(position).getPackageStatus();
         if (status.equalsIgnoreCase("Y")) {
@@ -73,21 +76,33 @@ public class BasePackagesAdapter extends RecyclerView.Adapter<BasePackagesAdapte
             holder.status.setText("Inactive");
         }
 
-        BasePackagesModel basePackagesModel=basePackagesModelArrayList.get(position);
+//        holder.packageName.setText(basePackagesModelArrayList.get(position).getPackageName());
+//        holder.amount.setText(basePackagesModelArrayList.get(position).getAmount());
+//        holder.tax.setText(basePackagesModelArrayList.get(position).getTax());
+//        holder.className.setText(basePackagesModelArrayList.get(position).getClasses());
+//
+//        String status=basePackagesModelArrayList.get(position).getPackageStatus();
+//        if (status.equalsIgnoreCase("Y")) {
+//            holder.status.setText("Active");
+//        } else {
+//            holder.status.setText("Inactive");
+//        }
+//
+//        BasePackagesModel basePackagesModel=basePackagesModelArrayList.get(position);
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String packageId = basePackagesModel.getPackageId();
-                String custid = basePackagesModel.getCustId();
-                String packageName = basePackagesModel.getPackageName();
-                String description = basePackagesModel.getDescription();
-                String amount = basePackagesModel.getAmount();
-                String taxid = basePackagesModel.getTaxid();
-                String taxName = basePackagesModel.getTax();
-                String classid = basePackagesModel.getClassid();
-                String classname = basePackagesModel.getClasses();
-                String status=basePackagesModel.getPackageStatus();
+                String packageId = String.valueOf(model.getPackageId());
+                String custid = String.valueOf(model.getCustId());
+                String packageName = model.getPackageName();
+                String description = model.getPackageDescription();
+                String amount = String.valueOf(model.getPackageAmount());
+                String taxid = String.valueOf(model.getTaxid());
+                String taxName = model.getTax();
+                String classid = String.valueOf(model.getClassId());
+                String classname = model.getClasses();
+                String status=model.getPackageStatus();
 
                 Intent intent = new Intent(context, UpdateBasePackage.class);
                 intent.putExtra("packageId", packageId);
@@ -100,67 +115,11 @@ public class BasePackagesAdapter extends RecyclerView.Adapter<BasePackagesAdapte
                 intent.putExtra("classId", classid);
                 intent.putExtra("className", classname);
                 intent.putExtra("packageStatus", status);
-                intent.putExtra("list",basePackagesModel);
+//                intent.putExtra("list",model);
 
                 context.startActivity(intent);
             }
         });
-
-//        holder.remove.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                    OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-//                            .callTimeout(2, TimeUnit.MINUTES)
-//                            .connectTimeout(90,TimeUnit.SECONDS)
-//                            .readTimeout(30,TimeUnit.SECONDS)
-//                            .writeTimeout(30,TimeUnit.SECONDS);
-//
-//                    Retrofit retrofit=new Retrofit.Builder()
-//                            .baseUrl(VcareApi.JSONURL)
-//                            .addConverterFactory(ScalarsConverterFactory.create())
-//                            .client(httpClient.build())
-//                            .build();
-//
-//                    VcareApi vcareApi=retrofit.create(VcareApi.class);
-//                    Call<String> call=vcareApi.delete_package(basePackagesModel.getPackageId(),"0");
-//                    call.enqueue(new Callback<String>() {
-//                        @Override
-//                        public void onResponse(Call<String> call, Response<String> response) {
-//                            if (response.body()!=null){
-//                                try {
-//                                    JSONObject jsonObject=new JSONObject(response.body());
-//                                    String message=jsonObject.getString("message");
-//                                    String  error=jsonObject.getString("errorMessage");
-//                                    if (jsonObject.getString("message").equalsIgnoreCase("Deleted Successfully")){
-//                                        Utils.showAlertDialog(context,message,false);
-//                                        basePackagesModelArrayList.remove(position);
-//                                        notifyItemRemoved(position);
-//                                    } else {
-//                                        Utils.showAlertDialog(context,error,false);
-//                                    }
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }else{
-//                                progressRelative.setVisibility(View.GONE);
-//                                Utils.showAlertDialog(context,error,false);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<String> call, Throwable t) {
-//                            progressRelative.setVisibility(View.GONE);
-//                            String message="";
-//                            if (t instanceof UnknownHostException){
-//                                message="No Internet Connection!";
-//                            }else{
-//                                message="Something went wrong! try again";
-//                            }
-//                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//            }
-//        });
 
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +142,7 @@ public class BasePackagesAdapter extends RecyclerView.Adapter<BasePackagesAdapte
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         VcareApi vcareApi=retrofit.create(VcareApi.class);
-                        Call<String> call=vcareApi.delete_package(basePackagesModel.getPackageId(),"0");
+                        Call<String> call=vcareApi.delete_package(String.valueOf(model.getPackageId()),"0");
                         call.enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
@@ -252,11 +211,10 @@ public class BasePackagesAdapter extends RecyclerView.Adapter<BasePackagesAdapte
 
             edit=itemView.findViewById(R.id.edit);
             remove=itemView.findViewById(R.id.delete);
-
         }
     }
 
-    public void filterList(ArrayList<BasePackagesModel> filteredNames) {
+    public void filterList(List<BasePackagesModel.Model> filteredNames) {
         this.basePackagesModelArrayList = filteredNames;
         notifyDataSetChanged();
     }

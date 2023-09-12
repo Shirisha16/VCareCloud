@@ -18,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.client.vcarecloud.Adapters.BasePackagesAdapter;
 import com.client.vcarecloud.Api.LoadDetails;
+import com.client.vcarecloud.Api.RestService;
 import com.client.vcarecloud.Api.VcareApi;
 import com.client.vcarecloud.Adapters.EventAdapter;
 import com.client.vcarecloud.models.EventModel;
@@ -56,6 +58,9 @@ public class Events extends AppCompatActivity implements LoadDetails {
 
     String custId,empId,typeId,message,error;
 
+    ArrayList<EventModel.Model> modelList=new ArrayList<>();
+    EventModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +83,7 @@ public class Events extends AppCompatActivity implements LoadDetails {
 
         eventModel=new EventModel();
         eventModel = (EventModel) getIntent().getSerializableExtra("list");
-        adapter = new EventAdapter(eventModelsList, Events.this,loadDetails);
+//        adapter = new EventAdapter(eventModelsList, Events.this,loadDetails);
 
         custId=getIntent().getStringExtra("custId");
         empId=getIntent().getStringExtra("empID");
@@ -160,20 +165,20 @@ public class Events extends AppCompatActivity implements LoadDetails {
     }
 
     private void filter(String text) {
-        ArrayList<EventModel> filteredNames=new ArrayList<>();
-        for (EventModel s:eventModelsList){
+        ArrayList<EventModel.Model> filteredNames=new ArrayList<>();
+        for (EventModel.Model s:modelList){
             if ((s.getEventName().toLowerCase().contains(text.toLowerCase())) ||
                     (s.getFromDate().toLowerCase().contains(text.toLowerCase())) ||
                     (s.getToDate().toLowerCase().contains(text.toLowerCase())) ||
                     (s.getEventLocation().toLowerCase().contains(text.toLowerCase())) ||
                     (s.getEventDetails().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getEventsType().toLowerCase().contains(text.toLowerCase()))){
+                    (s.getEventtype().toLowerCase().contains(text.toLowerCase()))){
                 filteredNames.add(s);
                 noDataImage.setVisibility(View.INVISIBLE);
             }
 
         }
-        if (eventModelsList.size() != 0) {
+        if (modelList.size() != 0) {
             if (filteredNames.isEmpty()) {
                 noDataImage.setVisibility(View.VISIBLE);
             }
@@ -185,71 +190,81 @@ public class Events extends AppCompatActivity implements LoadDetails {
     private void eventDetails() {
         progressLayout.setVisibility(View.VISIBLE);
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                .callTimeout(2, TimeUnit.MINUTES)
-                .connectTimeout(90, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS);
+//        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+//                .callTimeout(2, TimeUnit.MINUTES)
+//                .connectTimeout(90, TimeUnit.SECONDS)
+//                .readTimeout(30, TimeUnit.SECONDS)
+//                .writeTimeout(30, TimeUnit.SECONDS);
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(VcareApi.JSONURL)
+//                .addConverterFactory(ScalarsConverterFactory.create())
+//                .client(httpClient.build())
+//                .build();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(VcareApi.JSONURL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-
-        VcareApi api = retrofit.create(VcareApi.class);
-        Call<String> call=api.events(userDetails.getCustId());
-        call.enqueue(new Callback<String>() {
+        VcareApi api = RestService.getClient().create(VcareApi.class);
+//        VcareApi api = retrofit.create(VcareApi.class);
+        Call<EventModel> call=api.events(userDetails.getCustId());
+        call.enqueue(new Callback<EventModel>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<EventModel> call, Response<EventModel> response) {
                 progressLayout.setVisibility(View.GONE);
-                if (response.body() != null) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body());
-                        if (jsonObject.optString("message").equalsIgnoreCase("Success")) {
-                            JSONArray jsonArray = jsonObject.getJSONArray("model");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                EventModel model = new EventModel();
-                                userDetails.setEventId(jsonObject1.getString("eventID"));
-
-                                model.setEventID(jsonObject1.getString("eventID"));
-                                model.setEventsType(jsonObject1.getString("eventtype"));
-                                model.setCustId(jsonObject1.getString("custId"));
-                                model.setEventName(jsonObject1.getString("eventName"));
-                                model.setEventLocation(jsonObject1.getString("eventLocation"));
-                                model.setEventDetails(jsonObject1.getString("eventDetails"));
-                                model.setFromDate(jsonObject1.getString("fromDate"));
-                                model.setToDate(jsonObject1.getString("toDate"));
-                                model.setTypeId(jsonObject1.getString("typeId"));
-
-                                eventModelsList.add(model);
-
-                            }
-                            message = jsonObject.getString("message");
-                            error = jsonObject.getString("errorMessage");
-
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Events.this, RecyclerView.VERTICAL, false);
-                            recyclerEvent.setLayoutManager(linearLayoutManager);
-                            adapter=new EventAdapter(eventModelsList,Events.this,loadDetails);
-                            recyclerEvent.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-                        }
-                        else if (jsonObject.optString("message").equalsIgnoreCase("null")) {
-                            noDataImage.setVisibility(View.VISIBLE);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                model = response.body();
+                modelList = (ArrayList<EventModel.Model>) model.getModel();
+                if (!modelList.isEmpty()) {
+                    noDataImage.setVisibility(View.GONE);
+                    initRecycler();
+                }else {
+                    recyclerEvent.setVisibility(View.GONE);
+                    noDataImage.setVisibility(View.VISIBLE);
                 }
-                else {
-                    progressLayout.setVisibility(View.GONE);
-                    Utils.showAlertDialog(Events.this,"No Data Found",false);
-                }
+//                if (response.body() != null) {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response.body());
+//                        if (jsonObject.optString("message").equalsIgnoreCase("Success")) {
+//                            JSONArray jsonArray = jsonObject.getJSONArray("model");
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+//                                EventModel model = new EventModel();
+//                                userDetails.setEventId(jsonObject1.getString("eventID"));
+//
+//                                model.setEventID(jsonObject1.getString("eventID"));
+//                                model.setEventsType(jsonObject1.getString("eventtype"));
+//                                model.setCustId(jsonObject1.getString("custId"));
+//                                model.setEventName(jsonObject1.getString("eventName"));
+//                                model.setEventLocation(jsonObject1.getString("eventLocation"));
+//                                model.setEventDetails(jsonObject1.getString("eventDetails"));
+//                                model.setFromDate(jsonObject1.getString("fromDate"));
+//                                model.setToDate(jsonObject1.getString("toDate"));
+//                                model.setTypeId(jsonObject1.getString("typeId"));
+//
+//                                eventModelsList.add(model);
+//
+//                            }
+//                            message = jsonObject.getString("message");
+//                            error = jsonObject.getString("errorMessage");
+//
+//                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Events.this, RecyclerView.VERTICAL, false);
+//                            recyclerEvent.setLayoutManager(linearLayoutManager);
+//                            adapter=new EventAdapter(eventModelsList,Events.this,loadDetails);
+//                            recyclerEvent.setAdapter(adapter);
+//                            adapter.notifyDataSetChanged();
+//                        }
+//                        else if (jsonObject.optString("message").equalsIgnoreCase("null")) {
+//                            noDataImage.setVisibility(View.VISIBLE);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                else {
+//                    progressLayout.setVisibility(View.GONE);
+//                    Utils.showAlertDialog(Events.this,"No Data Found",false);
+//                }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<EventModel> call, Throwable t) {
                 progressLayout.setVisibility(View.GONE);
                 String message = "";
                 if (t instanceof UnknownHostException) {
@@ -261,6 +276,20 @@ public class Events extends AppCompatActivity implements LoadDetails {
                 finish();
             }
         });
+    }
+
+    private void initRecycler() {
+        if (modelList!=null){
+            noDataImage.setVisibility(View.GONE);
+            recyclerEvent.setVisibility(View.VISIBLE);
+            adapter = new EventAdapter(modelList,Events.this,loadDetails);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerEvent.setLayoutManager(layoutManager);
+            recyclerEvent.setAdapter(adapter);
+        }else {
+            recyclerEvent.setVisibility(View.GONE);
+            noDataImage.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -281,8 +310,8 @@ public class Events extends AppCompatActivity implements LoadDetails {
             startActivity(intent);
             finish();
         }
-
     }
+
     @Override
     public void onMethodCallback() {
     }

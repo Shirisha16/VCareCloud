@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.client.vcarecloud.Api.LoadDetails;
+import com.client.vcarecloud.Api.RestService;
 import com.client.vcarecloud.Api.VcareApi;
 import com.client.vcarecloud.Adapters.InvoiceListAdapter;
 import com.client.vcarecloud.models.InvoiceListModel;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -53,6 +55,9 @@ public class InvoiceList extends AppCompatActivity implements LoadDetails {
     InvoiceListAdapter adapter;
     LoadDetails loadDetails;
 
+    List<InvoiceListModel.Model> modelList;
+    InvoiceListModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +76,7 @@ public class InvoiceList extends AppCompatActivity implements LoadDetails {
         invoiceListModel=new InvoiceListModel();
         invoiceListModel = (InvoiceListModel) getIntent().getSerializableExtra("list");
 
-        adapter = new InvoiceListAdapter(invoiceListModelArrayList, InvoiceList.this,loadDetails);
+//        adapter = new InvoiceListAdapter(invoiceListModelArrayList, InvoiceList.this,loadDetails);
 
         custId=getIntent().getStringExtra("custId");
         userDetails=new UserDetails(InvoiceList.this);
@@ -136,79 +141,24 @@ public class InvoiceList extends AppCompatActivity implements LoadDetails {
     }
 
     private void invoiceList() {
+        VcareApi api =RestService.getClient().create(VcareApi.class);
         progress.setVisibility(View.VISIBLE);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                .callTimeout(2, TimeUnit.MINUTES)
-                .connectTimeout(90, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(VcareApi.JSONURL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-
-        VcareApi api = retrofit.create(VcareApi.class);
-        Call<String> call=api.invoice_list(userDetails.getCustId());
-        call.enqueue(new Callback<String>() {
+        Call<InvoiceListModel> call=api.invoice_list(userDetails.getCustId());
+        call.enqueue(new Callback<InvoiceListModel>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<InvoiceListModel> call, Response<InvoiceListModel> response) {
                 progress.setVisibility(View.GONE);
-                if (response.body() != null) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body());
-                        if (jsonObject.optString("message").equalsIgnoreCase("Success")) {
-                            JSONArray jsonArray = jsonObject.getJSONArray("model");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                InvoiceListModel model = new InvoiceListModel();
-
-                                model.setHeaderId(jsonObject1.getString("headerId"));
-                                model.setCustId(jsonObject1.getString("custId"));
-                                model.setClassId(jsonObject1.getString("childId"));
-                                model.setClassName(jsonObject1.getString("classname"));
-                                model.setInvoiceNo(jsonObject1.getString("invoiceNo"));
-                                model.setInvoiceMonth(jsonObject1.getString("invoiceMonth"));
-                                model.setInvoiceYear(jsonObject1.getString("invoiceYear"));
-                                model.setInvoicePeriod_From(jsonObject1.getString("invoicePeriod_From"));
-                                model.setInvoicePeriod_To(jsonObject1.getString("invoicePeriod_To"));
-                                model.setInvoiceDate(jsonObject1.getString("invoiceDate"));
-                                model.setInvoiceDueDate(jsonObject1.getString("invoiceDueDate"));
-                                model.setPaymentDate(jsonObject1.getString("paymentDate"));
-                                model.setChildName(jsonObject1.getString("childname"));
-                                model.setTotalChargeAmount(jsonObject1.getString("totalChargeAmount"));
-                                model.setTotalDiscountAmount(jsonObject1.getString("totalDiscountAmount"));
-                                model.setTotalTaxAmount(jsonObject1.getString("totalTaxAmount"));
-                                model.setTotalAdjustmentAmount(jsonObject1.getString("totalAdjustmentAmount"));
-                                model.setInvoiceAmount(jsonObject1.getString("invoiceAmount"));
-                                model.setPayAmount(jsonObject1.getString("payAmount"));
-
-                                model.setLatePayment(jsonObject1.getString("latePayment"));
-//                                model.setStatus(jsonObject1.getString("status"));
-                                invoiceListModelArrayList.add(model);
-                            }
-                            message = jsonObject.getString("message");
-                            error = jsonObject.getString("errorMessage");
-
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(InvoiceList.this, RecyclerView.VERTICAL, false);
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                            adapter = new InvoiceListAdapter(invoiceListModelArrayList, InvoiceList.this, InvoiceList.this);
-                            recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-                        }else if (jsonObject.optString("message").equalsIgnoreCase("null")) {
-                            noData.setVisibility(View.VISIBLE);
-                        }
-                    } catch (JSONException e) {
-                        Toast.makeText(InvoiceList.this, "No Data Found", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
+                model = response.body();
+                modelList = model.getModel();
+                if (!modelList.isEmpty()) {
+                    initRecycler();
+                }else {
+                    noData.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<InvoiceListModel> call, Throwable t) {
                 progress.setVisibility(View.GONE);
                 String message = "";
                 if (t instanceof UnknownHostException) {
@@ -222,20 +172,37 @@ public class InvoiceList extends AppCompatActivity implements LoadDetails {
         });
     }
 
+    private void initRecycler() {
+        if (modelList!=null){
+            noData.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter = new InvoiceListAdapter(modelList,this,this);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+        }else {
+            recyclerView.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void filter(String text) {
-        ArrayList<InvoiceListModel> filteredNames=new ArrayList<>();
-        for (InvoiceListModel s:invoiceListModelArrayList){
+        ArrayList<InvoiceListModel.Model> filteredNames=new ArrayList<>();
+        for (InvoiceListModel.Model s:modelList){
+            String invAmount=String.valueOf(s.getInvoiceAmount());
+            String getInvoiceYear=String.valueOf(s.getInvoiceYear());
+            String payAmount= String.valueOf(s.getPayAmount());
             if ((s.getInvoiceNo().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getChildName().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getInvoiceAmount().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getInvoicePeriod_From().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getInvoiceYear().toLowerCase().contains(text.toLowerCase())) ||
-                    (s.getPayAmount().toLowerCase().contains(text.toLowerCase()))) {
+                    (s.getChildname().toLowerCase().contains(text.toLowerCase())) ||
+                    (invAmount.toLowerCase().contains(text.toLowerCase())) ||
+                    (s.getInvoicePeriodFrom().toLowerCase().contains(text.toLowerCase())) ||
+                    (getInvoiceYear.toLowerCase().contains(text.toLowerCase())) ||
+                    (payAmount.toLowerCase().contains(text.toLowerCase()))) {
                 filteredNames.add(s);
                 noData.setVisibility(View.INVISIBLE);
             }
         }
-        if (invoiceListModelArrayList.size() != 0) {
+        if (modelList.size() != 0) {
             if (filteredNames.isEmpty()) {
                 noData.setVisibility(View.VISIBLE);
             }

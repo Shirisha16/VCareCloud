@@ -79,22 +79,6 @@ public class  ParticularEmployeeAttendanceAdapter extends RecyclerView.Adapter<P
         return empAttendanceModelArrayList.size();
     }
 
-    private String convertTime(String time) {
-
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        SimpleDateFormat format1 = new SimpleDateFormat("hh:mm aa");
-        Date date = new Date();
-
-        try {
-              date = format.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        String convertedDate = format1.format(date);
-        return convertedDate;
-    }
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView employeeName,shift,startDate,endDate,startTime,endTime;
 
